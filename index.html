@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.6.1/sweetalert2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://primerastereofmradio.free.nf/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://primerastereoradio.netlify.app/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/ico" href="http://primerastereoradio.free.nf/favicon.png" sizes="512x512">
+  <link rel="apple-touch-icon" sizes="512x512" href="http://primerastereoradio.free.nf/favicon.png"> 
+  <link rel="manifest" href="https://primerastereofmradio.free.nf/js/manifest.json">
+  <link rel="icon" href="http://primerastereoradio.free.nf/favicon.png" sizes="32x32" />
+  <link rel="icon" href="http://primerastereoradio.free.nf/favicon.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="http://primerastereoradio.free.nf/favicon.png" />
+  <title>PRIMERA STEREO   ||   Radio Online</title>
+  <script src="https://primerastereo2025.netlify.app/jquery-3.3.1.min.js"></script>
+  
+  <script src="https://primerastereo2025.netlify.app/lunaradio-animado.js"></script>
+  <title>Imagen transparente superpuesta</title>
+<style>
+.contenedor-principal {
+  position: relative; /* Necesario para posicionar los elementos hijos de forma absoluta */
+  width: 180px;
+  height: 300px;
+}
+
+
+
+.imagen-transparente {
+  position: absolute;
+  top: 0%; /* Ajusta la posición vertical */
+  left: 85%; /* Ajusta la posición horizontal */
+  transform: translate(-20%, -0%); /* Centra la imagen */
+  width: 150px;
+  height: 230px;
+  background-image: url('https://pr1merastereoradiofm.infy.uk/imagenes/4bg_site.png'); /* Tu imagen transparente (formato PNG es ideal) */
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2; /* Asegura que esta imagen esté encima de la otra */
+}
+</style>
+</head>
+<body>
+
+<div class="contenedor-principal">
+  <div class="imagen-fondo"></div>
+  <div class="imagen-transparente">
+    <style> 
+	
+   body {
+  background-color: #000000; /* O el nombre del color como "lightblue" */
+}
+   	</style>
+}</div>
+</div>
+
+</body>      
+      
+    
+    
+<style>
+        html,
+        body {
+            font-family: "Open Sans", sans-serif;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            color: #000000;
+        }
+    </style>
+
+
+</head>
+
+<body style="margin:0; padding:0; background:#000 url('') center center / cover no-repeat fixed; overflow-x:hidden;">
+
+  <!-- Luna Radio -->
+  <div id="lunaradio" style="width:100%; height:900%;">
+    Cargando radio...
+  </div>
+
+  <script>
+    $("#lunaradio").lunaradio({
+      userinterface: "big",
+      backgroundcolor: "",
+      fontcolor: "#ffffff",
+      hightlightcolor: "#0e60b8",
+      fontname: "Roboto",       // Fuente más normal
+      googlefont: "Roboto",                // Se elimina Google Fonts
+      fontratio: "0.4",
+      radioname: "PRIMERA STEREO",
+      scroll: "true",
+	  scrollradioname: "left",
+	  scrolltitle: "left",
+	  scrollradionamespeed: "0.25",
+	  scrolltitlespeed: "0.25", 
+      coverimage: "http://primerastereoradio.free.nf/favicon.png",
+      onlycoverimage: "false",
+      coverstyle: "animated",
+      usevisualizer: "real",
+      visualizertype: "6",
+	  multicolorvisualizer: "true",
+	  color1: "#f8fc03",
+	  color2: "#032cfc",
+	  color3: "#032cfc",
+	  color4: "#fc0303",
+      metadatatechnic: "ownmetadataurl", //fallback (usar para zeno)
+	  ownmetadataurl: "https://api.laut.fm/station/primerastereo/current_song.txt",
+      corsproxy: "",
+      usestreamcorsproxy: "false",
+      streamurl: "https://primerastereo.stream.laut.fm/",
+      streamtype: "icecast2",
+      shoutcastpath: "",
+	  icecastmountpoint: "/primerastereo",
+      shoutcastid: "0",
+      itunestoken: "1000lIPN",
+      metadatainterval: "5000",
+      volume: "100",
+      debug: "true",
+      autoplay: "true"
+    });
+  </script>
+<script>
+    // URL de la API de Laut.fm para obtener la canción actual
+    const API_URL = "https://api.laut.fm/station/primerastereo/current_song";
+    let lastMetadata = "";
+
+    // 1. FUNCIÓN: Busca la carátula en iTunes
+    function fetchCoverArt(artist, title, callback) {
+        const searchTerm = encodeURIComponent(`${artist} ${title}`);
+        const itunesApi = `https://itunes.apple.com/search?term=${searchTerm}&media=music&entity=song&limit=1`;
+        
+        // Carátula de respaldo si la búsqueda falla
+        const fallbackArtwork = 'assets/favicon.png'; 
+
+        $.getJSON(itunesApi, (data) => {
+            if (data.resultCount > 0) {
+                // Toma la URL de la carátula y la escala a un tamaño mayor (300x300)
+                const artworkUrl = data.results[0].artworkUrl100.replace('100x100bb', '300x300bb');
+                callback(artworkUrl);
+            } else {
+                callback(fallbackArtwork);
+            }
+        }).fail(() => {
+            callback(fallbackArtwork);
+        });
+    }
+
+    // 2. FUNCIÓN: Obtiene metadatos de Laut.fm e inyecta en Luna Radio
+    function fetchAndUpdateLunaRadio() {
+        $.getJSON(API_URL, (data) => {
+            // VERIFICACIÓN: Nos aseguramos de que data.artist y data.artist.name existan
+            if (data && data.title && data.artist && data.artist.name) {
+                const title = data.title;
+                const artistName = data.artist.name; // <--- ¡CORRECCIÓN CLAVE!
+
+                // Genera la cadena de metadatos (ej. "Elton John - Nikita")
+                const newMetadata = `${artistName} - ${title}`;
+
+                // Verifica si el metadato ha cambiado antes de actualizar (optimización)
+                if (newMetadata !== lastMetadata) {
+                    lastMetadata = newMetadata;
+                    
+                    fetchCoverArt(artistName, title, (artworkUrl) => { // Usa artistName
+                        // Formato requerido por lunaradio_set_metadata: TÍTULO|CARÁTULA|RADIO_NAME
+                        const metadataString = `${newMetadata}|${artworkUrl}|LAS 24 HORAS`; 
+
+                        // Inyección real de los datos en Luna Radio
+                        if (typeof lunaradio_set_metadata === 'function') {
+                            lunaradio_set_metadata(metadataString);
+                            console.log(`[LunaRadio] Metadatos actualizados: ${newMetadata}`);
+                        }
+                    });
+                }
+            }
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            console.error(`Error al obtener datos de Laut.fm: ${textStatus}, ${errorThrown}`);
+        });
+    }
+
+    // 3. LLAMADAS: Inicia la actualización inmediatamente y luego cada 8 segundos (8000 ms)
+    fetchAndUpdateLunaRadio();
+    setInterval(fetchAndUpdateLunaRadio, 8000); 
+
+</script>
+
+
+  <!-- WhatsApp flotante -->
+  <a href="https://api.whatsapp.com/send?phone=+5804127097429&text=Hola%20estoy%20escuchando%20la%20radio%20Quiero%20Información%20de%20la%20Publicidad" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" />
+  </a>
+
+  <!-- Redes sociales -->
+  <div class="redes">
+    <a href="https://www.facebook.com/PrimeraStereoRadio" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=jZ0kw76QEzJU&format=png" alt="Facebook">
+    </a>
+    <a href="https://www.instagram.com/Primera.Stereo/" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=AK1kgFswi0ZR&format=png" alt="Instagram">
+    </a>
+    	<a href="https://www.tiktok.com/@primerastereo" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=eU5bboia1PZr&format=png" alt="Tiktok">
+    </a>    
+	<a href="https://t.me/PrimeraStereo" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=5mIvDYZUWDCF&format=png" alt="Telegram">
+    </a>
+	<a href="https://www.twitter.com/Primera_Stereo" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=4eZI5999yCWV&format=png" alt="Facebook">
+    </a>
+	<a href="https://soundcloud.com/primerastereo" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=fdFkpp2AaOQb&format=png" alt="SoundCloud">
+    </a>
+	<a href="https://www.youtube.com/@PrimeraStereo" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=U3Yb54nlRGl5&format=png" alt="SoundCloud">
+    </a>
+	<a href="https://www.appcreator24.com/app3819260-6rbmq8" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=tkDm3D2QGGwE&format=png" alt="Web" />
+    </a>
+	<a href="https://api.whatsapp.com/send?phone=+5804127097429&text=Hola%20quiero%20informaci%C3%B3n%20%20de%20la%20publicidad" target="_blank">
+      <img src="https://img.icons8.com/?size=80&id=nys15IccJgLr&format=png" alt="Web" />
+    </a>
+  </div>
+
+  <style>
+    .whatsapp-float {
+      position: fixed;
+      bottom: 40px;
+      right: 10px;
+      z-index: 9999;
+      background-color: #25d366;
+      padding: 3px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+    .whatsapp-float img { width: 35px; height: 35px; }
+
+    .redes {
+      position: fixed;
+      top: 30px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 9999;
+    }
+    .redes img {
+      width: 40px;
+      height: 40px;
+      background-color: #ffffff;
+      border-radius: 100%;
+      padding: 3px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.0);
+    }
+  </style>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+
+  <!-- Botón de instalación PWA -->
+  <button id="installBtn" style="
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    padding: 15px 35px;
+    font-size: 14px;
+    background-color: #7A0404;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: none;
+    z-index: 9999;
+  ">
+    Instalar App
+  </button>
+
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+      installBtn.addEventListener('click', () => {
+        installBtn.style.display = 'none';
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => deferredPrompt = null);
+      });
+    });
+  </script>
+
+  
+
+</body>
+</html>
+<!-- Cintillo pié de página -->
+<footer style="display:grid;align-content:end">
+        <div style="background-color:#000;color:#fff;text-align:center;padding:5px"><p>
+            © Copyright 2010 - 2025 <br> <a href="#">PRIMERA STEREO Radio Online</a>
+        </p></div>
+</footer>
